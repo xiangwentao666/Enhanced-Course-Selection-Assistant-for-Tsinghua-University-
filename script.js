@@ -1,11 +1,13 @@
 // ==UserScript==
-// @name         Enhanced-Course-Selection-Assistant-for-Tsinghua-University清华大学选课辅助
+// @name         Enhanced-Course-Selection-Assistant-for-Tsinghua-University 清华大学选课辅助
+// @namespace    http://tampermonkey.net/
 // @version      0.1
 // @author       Xiang Wentao
 // @match        http://zhjwxk.cic.tsinghua.edu.cn/*
 // @match        https://webvpn.tsinghua.edu.cn/http/*
 // @icon         https://www.tsinghua.edu.cn/favicon.ico
 // ==/UserScript==
+
 
 function run_bijiaorenshu() {
     let page_title_tag = document.querySelector("body > div.waiKuang > div.concent.clearfix > div > div > p");
@@ -42,12 +44,9 @@ function run_bijiaoshijian(){
     }
 
     function formatClassDate(t1){
-
         let ret = null;
         let date1 = t1.substr(0, t1.indexOf("("));
         ret = date1;
-
-
         return ret;
     }
     function transformRangeToWeekArray(range_string){
@@ -74,6 +73,7 @@ function run_bijiaoshijian(){
             "十一":11,
             "十二":12,
         };
+
         suff = suff.substr(1, suff.indexOf(")")-1);
         if(suff.indexOf("全周")!=-1){
             ret = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
@@ -130,6 +130,7 @@ function run_bijiaoshijian(){
         let t = [-1];
         let globalN = 0;
         for(let i = 0; i < date_to_split.length; i++){
+            // console.log(date_to_split);
             if(date_to_split[i] == "("){
                 if(!flag){
                     flag = true;
@@ -145,6 +146,7 @@ function run_bijiaoshijian(){
                 t.push(i);
             }
         }
+        // console.log(t);
         for(let i = 0; i < t.length-1; i++){
             if(i == 0)
                 ret.push(date_to_split.substr(t[i]+1, t[i+1]));
